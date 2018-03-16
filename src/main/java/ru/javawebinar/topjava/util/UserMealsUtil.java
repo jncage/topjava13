@@ -39,8 +39,8 @@ public class UserMealsUtil {
         for (UserMeal meal: mealList) {
             LocalDate date = meal.getDateTime().toLocalDate();
             LocalTime time = meal.getDateTime().toLocalTime();
-            if (map.get(date) > caloriesPerDay && TimeUtil.isBetween(time, startTime, endTime)) {
-                result.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), map.get(date), true) );
+            if (TimeUtil.isBetween(time, startTime, endTime)) {
+                result.add(new UserMealWithExceed(meal.getDateTime(), meal.getDescription(), map.get(date), map.get(date) > caloriesPerDay) );
             }
 
         }
