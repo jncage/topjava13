@@ -22,7 +22,6 @@
 <table border="1" cellpadding="5" style="border-collapse: collapse; border: 1px solid black;">
     <thead>
     <tr>
-        <th>Id</th>
         <th>Time</th>
         <th>Description</th>
         <th>Calories</th>
@@ -33,7 +32,6 @@
     <c:forEach items="${meals}" var="meal">
         <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.MealWithExceed"/>
         <tr class="${meal.exceed == true ? 'exceeded' : 'normal'}">
-            <td>${meal.id}</td>
             <td><%--<fmt:parseDate value="${meal.dateTime}" pattern="yyyy-MM-dd'T'HH:mm" var="time" type="both"/>
                 <fmt:formatDate value="${time}" pattern="dd-MM-yyyy HH:mm"/>--%>
             <%=TimeUtil.toString(meal.getDateTime())%></td>

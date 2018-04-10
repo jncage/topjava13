@@ -7,7 +7,7 @@
 </head>
 <body>
 <form method="POST" action='meals?action=listMeal' name="frmAddMeal">
-    Meal ID : <input type="text" name="mealId" readonly="readonly"
+    Meal ID : <input type="hidden" name="mealId" readonly="readonly"
                      value=${meal.id}> <br/>
     Time : <input type="datetime-local" name="dateTime" value="${meal.dateTime}"/> <br/>
     Description : <input
