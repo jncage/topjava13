@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -76,13 +75,13 @@ public class MealServiceTest {
         Meal updatedForUser = new Meal(USER_MEAL1);
         updatedForUser.setDescription("Лёгкий завтрак");
         updatedForUser.setCalories(200);
-        AuthorizedUser.setId(USER_ID);
+       // AuthorizedUser.setId(USER_ID);
         service.update(updatedForUser, USER_ID);
         assertMatch(service.get(USER_MEAL1.getId(), USER_ID), updatedForUser);
         Meal updatedForAdmin = new Meal(ADMIN_MEAL2);
         updatedForAdmin.setDescription("Админский ужин");
         updatedForAdmin.setCalories(400);
-        AuthorizedUser.setId(ADMIN_ID);
+       //AuthorizedUser.setId(ADMIN_ID);
         service.update(updatedForAdmin, ADMIN_ID);
         assertMatch(service.get(ADMIN_MEAL2.getId(), ADMIN_ID), updatedForAdmin);
     }
@@ -99,19 +98,19 @@ public class MealServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void duplicateDateCreate() throws Exception {
-        AuthorizedUser.setId(USER_ID);
-        service.create(new Meal(USER_MEAL1.getDateTime(), "Роллы", 200), AuthorizedUser.id());
+       // AuthorizedUser.setId(USER_ID);
+        service.create(new Meal(USER_MEAL1.getDateTime(), "Роллы", 200), USER_ID);
     }
     @Test
     public void create() {
         Meal newMealForAdmin = new Meal(LocalDateTime.of(2015, 6, 1, 17, 0), "Админ обед", 1500);
         Meal newMealForUser = new Meal(LocalDateTime.of(2015, 6, 1, 15, 0), "Обед", 1300);
-         AuthorizedUser.setId(USER_ID);
-        Meal createdMealForUser = service.create(newMealForUser, AuthorizedUser.id());
+     // AuthorizedUser.setId(USER_ID);
+        Meal createdMealForUser = service.create(newMealForUser, USER_ID);
         newMealForUser.setId(createdMealForUser.getId());
         assertMatch(service.getAll(USER_ID), USER_MEAL2, newMealForUser, USER_MEAL1);
-        AuthorizedUser.setId(ADMIN_ID);
-        Meal createdMealForAdmin = service.create(newMealForAdmin, AuthorizedUser.id());
+    //    AuthorizedUser.setId(ADMIN_ID);
+        Meal createdMealForAdmin = service.create(newMealForAdmin, ADMIN_ID);
         newMealForUser.setId(createdMealForAdmin.getId());
         assertMatch(service.getAll(ADMIN_ID), ADMIN_MEAL2, newMealForAdmin, ADMIN_MEAL1);
 
