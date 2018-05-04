@@ -39,8 +39,8 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     public Meal save(Meal meal, int userId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", meal.getId())
-                .addValue("userId", userId)
-                .addValue("dateTime", meal.getDateTime())
+                .addValue("user_id", userId)
+                .addValue("date_time", meal.getDateTime())
                 .addValue("description", meal.getDescription())
                 .addValue("calories", meal.getCalories());
         if (meal.isNew()) {
